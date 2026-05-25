@@ -11,7 +11,7 @@
   <h1>PokÉdu</h1>
   <p>Welcome to PokÉdu!</p>
   <div>
-    <h2>내 에듀몬: 뽀롱이 🐣</h2>
+    <h2>내 에듀몬: 뽀롱이 <span id="monster">🐣</span></h2>
     <p id="status">상태: 배고파요😭</p>
     <p id="level">레벨: 1 (부화)</p>
     <p id="heart">❤️❤️❤️🤍🤍</p>
@@ -39,13 +39,17 @@
       </a>
     </div>
   </div>
-    <script>
-      let level = 1; // 뽀롱이 레벨
-      let heart = 3; // 뽀롱이 하트 (최대 5)
-
-      function feedMonster(food, article) {
-        // 먹이 줬을 때 팝업
-        alert("냠냠! 뽀롱이가 " + food + article + "먹었어요");
+  <script>
+    let level = 1; // 뽀롱이 레벨
+    let heart = 3; // 뽀롱이 하트 (최대 5)
+    let hungryTimer = null; // 
+    타이머 저장용 변수 추가
+    clearTimeout(hungryTimer); // 페이지 로드 시 기존 타이머 초기화
+    hungryTimer = setTimeout(getHungry, 5000); // 5초 후 배고파지기 시작
+    
+    function feedMonster(food, article) {
+      // 먹이 줬을 때 팝업
+      alert("냠냠! 뽀롱이가 " + food + article + "먹었어요");
 
       // 상태 배부르게 변경
       document.getElementById("status").innerText = "상태: 배불러요😊";
@@ -53,26 +57,39 @@
       // 레벨 올리기
       level++;
       document.getElementById("level").innerText = "레벨: " + level + " (부화)";
-
+      
+      // 레벨에 따라 이모지 변경
+      if (level >= 31) {
+        document.getElementById("monster").innerText = "🦜"; 
+      } 
+      else if (level >=16) {
+        document.getElementById("monster").innerText = "🐤"; 
+      }
+      else if (level >= 6){
+          document.getElementById("monster").innerText = "🐥"; 
+      }
+      else {
+        document.getElementById("monster").innerText = "🐣";  
+        }
       // 하트 올리기 (최대 5)
       if (heart < 5) {
-      heart++;
-      document.getElementById("heart").innerText = "❤️".repeat(heart) + "🤍".repeat(5 - heart);
-    }
+        heart++;
+        document.getElementById("heart").innerText = "❤️".repeat(heart) + "🤍".repeat(5 - heart);
+      }
       // 5초 후 다시 배고파지기
       setTimeout(getHungry, 5000);
-  }
-
-      function getHungry() {
-        // 상태 배고프게 변경
-        document.getElementById("status").innerText = "상태: 배고파요😭";
-
-    // 하트 줄이기 (최소 0)
-    if (heart > 0) {
-        heart--;
-      document.getElementById("heart").innerText = "❤️".repeat(heart) + "🤍".repeat(5 - heart);
     }
-  } 
+
+    function getHungry() {
+      // 상태 배고프게 변경
+      document.getElementById("status").innerText = "상태: 배고파요😭";
+
+      // 하트 줄이기 (최소 0)
+      if (heart > 0) {
+        heart--;
+        document.getElementById("heart").innerText = "❤️".repeat(heart) + "🤍".repeat(5 - heart);
+      }
+    } 
   </script>
 </body>
 
