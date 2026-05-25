@@ -1,48 +1,79 @@
 <!DOCTYPE html>
-  <html lang="ko">
-    <head>
-      <meta charset="UTF-8">
-      <title>PokÉdu</title>
-      <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-      <h1>PokÉdu</h1>
-      <p>Welcome to PokÉdu!</p>
-      <div>
-        <h2>내 에듀몬: 뽀롱이 🐣</h2>
-        <p id="status">상태: 배고파요😭</p>
-        <p>레벨: 1 (부화)</p>
-        <p>❤️❤️❤️🤍🤍</p>
-      </div>
-      <div>
-        <h3>뽀롱이를 도와줘</h3>
-        <p>먹고 싶은걸 골라줘</p>
-        <div class="button-group">
-          <button onclick="feedMonster('🍖고기', '를 ')">🍖고기</button> 
-          <button onclick="feedMonster('🍎 사과', '를 ')">🍎 사과</button>
-          <button onclick="feedMonster('🍞 빵', '을 ')">🍞 빵</button>
-        </div>
-      </div>
-      <div>
-        <h3>메뉴</h3>
-        <div class="button-group">
-          <a href="adventure.html">
-          <button>🗺️모험하기</button>
-          </a>
-          <a href="collection.html">
-          <button>📚도감보기</button>
-          </a>
-          <a href="parent.html">
-          <button>👨‍👩‍👧‍👦학부모</button>
-          </a>
-        </div> 
-      </div>
+<html lang="ko">
 
-      <script>
+<head>
+  <meta charset="UTF-8">
+  <title>PokÉdu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>PokÉdu</h1>
+  <p>Welcome to PokÉdu!</p>
+  <div>
+    <h2>내 에듀몬: 뽀롱이 🐣</h2>
+    <p id="status">상태: 배고파요😭</p>
+    <p id="level">레벨: 1 (부화)</p>
+    <p id="heart">❤️❤️❤️🤍🤍</p>
+  </div>
+  <div>
+    <h3>뽀롱이를 도와줘</h3>
+    <p>먹고 싶은걸 골라줘</p>
+    <div class="button-group">
+      <button onclick="feedMonster('🍖고기', '를 ')">🍖고기</button>
+      <button onclick="feedMonster('🍎 사과', '를 ')">🍎 사과</button>
+      <button onclick="feedMonster('🍞 빵', '을 ')">🍞 빵</button>
+    </div>
+  </div>
+  <div>
+    <h3>메뉴</h3>
+    <div class="button-group">
+      <a href="adventure.html">
+        <button>🗺️모험하기</button>
+      </a>
+      <a href="collection.html">
+        <button>📚도감보기</button>
+      </a>
+      <a href="parent.html">
+        <button>👨‍👩‍👧‍👦학부모</button>
+      </a>
+    </div>
+  </div>
+    <script>
+      let level = 1; // 뽀롱이 레벨
+      let heart = 3; // 뽀롱이 하트 (최대 5)
+
       function feedMonster(food, article) {
+        // 먹이 줬을 때 팝업
         alert("냠냠! 뽀롱이가 " + food + article + "먹었어요");
-        document.getElementById("status").innerText="상태: 배불러요😊"
-      }  
-      </script>
-    </body>
-  </html>
+
+      // 상태 배부르게 변경
+      document.getElementById("status").innerText = "상태: 배불러요😊";
+
+      // 레벨 올리기
+      level++;
+      document.getElementById("level").innerText = "레벨: " + level + " (부화)";
+
+      // 하트 올리기 (최대 5)
+      if (heart < 5) {
+      heart++;
+      document.getElementById("heart").innerText = "❤️".repeat(heart) + "🤍".repeat(5 - heart);
+    }
+      // 5초 후 다시 배고파지기
+      setTimeout(getHungry, 5000);
+  }
+
+      function getHungry() {
+        // 상태 배고프게 변경
+        document.getElementById("status").innerText = "상태: 배고파요😭";
+
+    // 하트 줄이기 (최소 0)
+    if (heart > 0) {
+        heart--;
+      document.getElementById("heart").innerText = "❤️".repeat(heart) + "🤍".repeat(5 - heart);
+    }
+  } 
+  </script>
+</body>
+
+</html>
